@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block css %}
+<style>
+  /* owl  Carousel*/
+  .owl-prev,
+  .owl-next {
+    display: flex;
+    position: absolute;
+    transform: scale(4) !important;
+    color: red !important;
+  }
+
+  .owl-prev {
+    top: 70px;
+    left: 0;
+  }
+
+  .owl-next {
+    top: 70px;
+    right: 0;
+  }
+
+  .owl-prev:hover,
+  .owl-next:hover {
+    background: none !important;
+  }
+</style>
+
+{% endblock css %}
+
+
+
+{% block main %}
+<!-- Hero image -->
+<div class="hero-image">
+
+  <div class="hero-text">
+    <h1>Sınırsız film, dizi ve çok daha fazlası.</h1>
+    <h4>İstediğiniz yerde izleyin. İstediğiniz zaman iptal edin.</h4>
+    <p>İzlemeye hazır mısınız? Üyelik oluşturmak veya üyeliğinze erişmek için e-posta adresinizi girin</p>
+
+    <button class="btn btn-secondary btn-lg mt-3">Oynat</button>
+    <button class="btn btn-secondary btn-lg mt-3">Daha Fazla Bilgi</button>
+  </div>
+
+</div>
+
+<div class="container">
+  <div class="row mt-5">
+    {% for categoryItem in category %}
+    <h3 class="text-light">{{ categoryItem.catetitle }}</h3>
+
+    <div class="galeri owl-carousel owl-theme">
+      {% for categoryCard in categoryItem.card_set.all %}
+      <div class="item">
+        <img src="{{ categoryCard.image.url }}" alt="">
+      </div>
+      {% endfor %}
+    </div>
+
+    {% endfor %}
+  </div>
+</div>
+{% endblock main %}
+
+
+
+{% block js %}
+<script>
+  var owl = $('.galeri');
+  owl.owlCarousel({
+    margin: 10,
+    dots: false,
+    nav: true,
+
+
+    smartSpeed: 4000,
+    responsive: {
+      0: {
+        items: 1
+      },
+      600: {
+        items: 3
+      },
+      1000: {
+        items: 4
+      }
+    }
+  })
+
+</script>
+{% endblock js %}
